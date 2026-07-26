@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roue BIG PADEL</title>
+
+<style>
+body{
+    margin:0;
+    background:#0b1f4d;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+    font-family:Arial,sans-serif;
+    color:white;
+}
+
+h1{
+    color:#FFD400;
+}
+
+#wheel{
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    border:8px solid #FFD400;
+    background:conic-gradient(
+        #FFD400 0deg 90deg,
+        #0b1f4d 90deg 180deg,
+        #FFD400 180deg 270deg,
+        #0b1f4d 270deg 360deg
+    );
+    position:relative;
+    transition:transform 5s ease-out;
+}
+
+#wheel::before{
+    content:"Boîte de balles";
+    position:absolute;
+    top:35px;
+    left:165px;
+    transform:rotate(45deg);
+    font-size:14px;
+    font-weight:bold;
+}
+
+#wheel::after{
+    content:"Partie offerte";
+    position:absolute;
+    bottom:35px;
+    left:40px;
+    transform:rotate(-135deg);
+    font-size:14px;
+    font-weight:bold;
+}
+
+#labels{
+    position:absolute;
+    width:320px;
+    height:320px;
+    pointer-events:none;
+}
+
+#labels div{
+    position:absolute;
+    font-weight:bold;
+}
+
+.l1{top:45px;left:45px;transform:rotate(-45deg);}
+.l2{top:45px;right:25px;transform:rotate(45deg);}
+.l3{bottom:45px;right:55px;transform:rotate(135deg);}
+.l4{bottom:45px;left:15px;transform:rotate(-135deg);}
+
+.pointer{
+    font-size:50px;
+    color:#FFD400;
+}
+
+button{
+    margin-top:30px;
+    padding:15px 40px;
+    font-size:22px;
+    border:none;
+    border-radius:10px;
+    background:#FFD400;
+    color:#0b1f4d;
+    font-weight:bold;
+}
+
+#result{
+    margin-top:20px;
+    font-size:28px;
+    font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🎡 BIG PADEL</h1>
+
+<div class="pointer">▼</div>
+
+<div style="position:relative;">
+<div id="wheel"></div>
+
+<div id="labels">
+<div class="l1">PERDU</div>
+<div class="l2">BOÎTE DE BALLES</div>
+<div class="l3">PERDU</div>
+<div class="l4">PARTIE OFFERTE</div>
+</div>
+</div>
+
+<button onclick="spin()">Lancer</button>
+
+<div id="result"></div>
+
+<script>
+
+const lots=[
+"PERDU",
+"BOÎTE DE BALLES",
+"PERDU",
+"PARTIE OFFERTE"
+];
+
+let rotation=0;
+
+function spin(){
+
+const choix=Math.floor(Math.random()*4);
+
+rotation+=1800+(360-choix*90-45);
+
+document.getElementById("wheel").style.transform="rotate("+rotation+"deg)";
+
+setTimeout(()=>{
+document.getElementById("result").innerHTML="🎉 "+lots[choix];
+},5000);
+
+}
+
+</script>
+
+</body>
+</html>
